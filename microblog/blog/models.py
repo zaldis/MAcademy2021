@@ -26,27 +26,22 @@ class Book(models.Model):
 
 
 class Reader(models.Model):
-    book = models.ForeignKey(Book,
-                             on_delete=models.CASCADE,
-                             db_column='book_title',
-                             related_name='read_rows',
-                             verbose_name='link to book')
-    user = models.ForeignKey(User,
-                             on_delete=models.CASCADE,
-                             db_column='user_id',
-                             related_name='read_rows',
-                             verbose_name='link to user')
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    books = models.ManyToManyField(Book, related_name='readers')
 
     class Meta:
         verbose_name = 'reader'
         verbose_name_plural = 'readers'
 
     def __str__(self):
-        return f'Reader <{self.user} reads "{self.book}">'
+        return (
+            f'Reader <{self.user} reads "{self.books.count()} books">'
+        )
 
     def __repr__(self):
         cls_name = type(self).__name__
+        books = [book for book in self.books.all()]
         return (
-            f'{cls_name}(book_title="{self.book}", '
-            f'user_id={self.user})'
+            f'{cls_name}(books="{books}", '
+            f'user_id={self.user_id})'
         )
