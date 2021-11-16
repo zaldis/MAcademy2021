@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %} Books {% endblock %}
+
+{% block header %}List of books{% endblock %}
+
+{% block body %}
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Publication year</th>
+    </tr>
+
+    {% for book in books %}
+    <tr>
+        <td>{{ book.title }}</td>
+        <td>{{ book.publication_year }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
