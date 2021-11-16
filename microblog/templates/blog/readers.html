@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Readers{% endblock %}
+
+{% block header %}List of Readers{% endblock %}
+
+{% block body %}
+<table>
+    <tr>
+        <th>Username</th>
+        <th>Books</th>
+    </tr>
+
+    {% for reader in readers %}
+    <tr>
+        <td>{{ reader.user.username }}</td>
+        <td>
+            <ol>
+                {% for book in reader.books.all %}
+                <li>{{ book.title }}</li>
+                {% endfor %}
+            </ol>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

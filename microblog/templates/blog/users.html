@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Users{% endblock %}
+
+{% block header %}List of users{% endblock %}
+
+{% block body %}
+<table>
+    <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Is superuser</th>
+        <th>Is admin</th>
+    </tr>
+
+    {% for user in users %}
+    <tr>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        
+        <td> {% if user.is_superuser %}+{% else %}-{% endif %} </td>
+
+        <td> {% if user.is_staff %}+{% else %}-{% endif %} </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
