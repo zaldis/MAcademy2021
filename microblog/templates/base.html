@@ -14,13 +14,13 @@
     <div class="container">
         <h1>{% block header %}{% endblock %}</h1>
         <nav>
-            <a href="{{ nav.index }}">Index</a> |
-            <a href="{{ nav.books }}">Books</a> |
-            <a href="{{ nav.readers }}">Readers</a> |
-            <a href="{{ nav.users }}">Users</a>
+            <a href="{{ routers.index }}">Index</a> |
+            <a href="{{ routers.books }}">Books</a> |
+            <a href="{{ routers.readers }}">Readers</a> |
+            <a href="{{ routers.users }}">Users</a>
         </nav>
 
-        <h2>URL: {{ url }}</h2>
+        <h2>URL: {{ path }}</h2>
 
 
         {% block body %}{% endblock %}
