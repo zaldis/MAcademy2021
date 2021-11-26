@@ -13,7 +13,7 @@ class ReaderManager(models.Manager):
 
 
 class Reader(models.Model):
-    user = models.OneToOneField(User, related_name='reader', db_column=..., on_delete=models.CASCADE)
+    user = models.OneToOneField(User, related_name='reader', on_delete=models.CASCADE)
     books = models.ManyToManyField(Book, related_name='readers')
 
     objects = ReaderManager()
