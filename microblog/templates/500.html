@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Ошибка на сервере
+{% endblock %}
+
+
+{% block header %}
+Ошбика 500
+{% endblock %}
+
+
+{% block body %}
+<hr>
+<div class="card" style="width: 60%; margin: auto;">
+    <div class="card-header">
+        Похоже что серверу нужен врач ;(
+    </div>
+    <div class="card-body">
+        <blockquote class="blockquote mb-0">
+            <p>
+                Укажите какая последовательность шагов привела к подобному. 
+                Система скоро будет поднята на ноги.
+            </p>
+        </blockquote>
+    </div>
+</div>
+{% endblock %}
