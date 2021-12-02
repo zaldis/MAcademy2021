@@ -12,16 +12,34 @@
 
 <body>
     <div class="container">
-        <h1>{% block header %}{% endblock %}</h1>
         <nav>
-            <a href="{{ nav.index }}">Index</a> |
-            <a href="{{ nav.books }}">Books</a> |
-            <a href="{{ nav.readers }}">Readers</a> |
-            <a href="{{ nav.users }}">Users</a>
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ routers.index }}">
+                        Index
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ routers.books }}">
+                        Books
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ routers.readers }}">
+                        Readers
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ routers.users }}">
+                        Users
+                    </a>
+                </li>
+            </ul>
         </nav>
 
-        <h2>URL: {{ url }}</h2>
+        <h1>{% block header %}{% endblock %}</h1>
 
+        {% comment %} <h2>URL: {{ path }}</h2> {% endcomment %}
 
         {% block body %}{% endblock %}
     </div>
