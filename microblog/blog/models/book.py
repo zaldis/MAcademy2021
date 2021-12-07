@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Book(models.Model):
@@ -8,6 +9,9 @@ class Book(models.Model):
     class Meta:
         verbose_name = 'book'
         verbose_name_plural = 'books'
+
+    def get_absolute_url(self):
+        return reverse("v2:book-detail", kwargs={"title": self.title})
 
     def __str__(self):
         return f'Book <"{self.title}" in {self.publication_year} year>'

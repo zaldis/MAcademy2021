@@ -1,6 +1,7 @@
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render, HttpResponseRedirect
+from django.urls import reverse
 from django.views import View
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.views.decorators.http import require_http_methods
 
 from blog.models import Book
@@ -43,7 +44,7 @@ def books_list(request):
 #         return HttpResponseRedirect(request.path)
 
 
-class BookList(ListView):
+class BookListView(ListView):
     model = Book
     ordering = ['-publication_year', 'title']
     template_name='blog/books.html'
@@ -56,3 +57,25 @@ class BookList(ListView):
         }
         Book.objects.create(**fields)
         return HttpResponseRedirect(request.path)
+
+
+class BookDetailView(DetailView, UpdateView):
+    model = Book
+    fields = ['title', 'publication_year']
+    template_name = 'blog/book_detail.html'
+    context_object_name = 'book'
+
+    def get_object(self, queryset=None):
+        title = self.kwargs.get('title')
+        return get_object_or_404(Book, title=title)
+
+
+class BookDeleteView(DeleteView):
+    model = Book
+    
+    def get_object(self, queryset=None):
+        title = self.kwargs.get('title')
+        return get_object_or_404(Book, title=title)
+
+    def get_success_url(self) -> str:
+        return reverse('v2:book-list')

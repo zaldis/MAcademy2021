@@ -1,9 +1,9 @@
 from django.core.exceptions import BadRequest, PermissionDenied
 
-from .books import books_list, BookList
-from .index import index
-from .readers import readers_list
-from .users import users_list
+from .books import books_list, BookListView, BookDetailView, BookDeleteView
+from .index import index, IndexView
+from .readers import readers_list, ReaderListView
+from .users import users_list, UserListView
 
 
 def server_death(request):
@@ -19,10 +19,10 @@ def permission_denied(request):
 
 
 __all__ = [
-    users_list,
-    readers_list,
-    books_list, BookList,
-    index,
+    users_list, UserListView,
+    readers_list, ReaderListView,
+    books_list, BookListView, BookDetailView, BookDeleteView,
+    index, IndexView,
 
     server_death,
     bad_user_request,

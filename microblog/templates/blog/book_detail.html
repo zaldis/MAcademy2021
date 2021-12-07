@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Book detail: {{ book.title }}{% endblock %}
+
+{% block header %}Book detail: {{ book.title }}{% endblock %}
+
+{% block body %}
+<form method='post'>
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label for="book-title" class="form-label">Book title</label>
+        <input type="text" class="form-control" id="book-title" readonly
+            name="title" placeholder="Pass book title" value="{{ book.title }}">
+    </div>
+    <div class="mb-3">
+        <label for="book-publication-year" class="form-label">Publication year</label>
+        <input type='number' class="form-control" id="book-publication-year"
+            name="publication_year" min="1600" max="2050" value={{ book.publication_year }}>
+    </div>
+    <button type='submit' class="btn btn-outline-secondary">Update book</button>
+</form>
+
+<hr>
+
+<form method='post' action="delete/">
+    {% csrf_token %}
+    <button type='submit' class="btn btn-outline-danger">Delete book</button>
+</form>
+{% endblock %}

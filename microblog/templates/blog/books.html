@@ -30,10 +30,14 @@
     </tr>
 
     {% for book in books %}
-    <tr>
-        <td>{{ book.title }}</td>
-        <td>{{ book.publication_year }}</td>
-    </tr>
+        <tr>
+            <td>
+                <a href="{% url 'v2:book-detail' title=book.title %}">
+                    {{ book.title }}
+                </a>
+            </td>
+            <td>{{ book.publication_year }}</td>
+        </tr>
     {% endfor %}
 </table>
 {% endblock %}
