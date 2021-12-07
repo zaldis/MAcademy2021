@@ -5,6 +5,24 @@
 {% block header %}List of books{% endblock %}
 
 {% block body %}
+<form method='post' action='/v2/books/'>
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label for="book-title" class="form-label">Book title</label>
+        <input type="text" class="form-control" id="book-title"
+               name="title" placeholder="Pass book title">
+    </div>
+    <div class="mb-3">
+        <label for="book-publication-year" class="form-label">Publication year</label>
+        <input type='number' class="form-control" id="book-publication-year"
+               name="publication_year" value="1600" min="1600" max="2050">
+    </div>
+    <button type='submit' class="btn btn-outline-secondary">Add book</button>
+</form>
+
+<hr>
+
 <table class="table table-light table-striped table-hover">
     <tr class="table-dark">
         <th>Title</th>
