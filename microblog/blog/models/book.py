@@ -4,7 +4,8 @@ from django.urls import reverse
 
 class Book(models.Model):
     title = models.TextField(primary_key=True, verbose_name="title")
-    publication_year = models.PositiveIntegerField(verbose_name="publication year")
+    publication_year = models.PositiveIntegerField(verbose_name="publication year", default=1600)
+    photo = models.ImageField(upload_to='book_photos', null=True, blank=True)
 
     class Meta:
         verbose_name = 'book'

@@ -1,23 +1,36 @@
 {% extends 'base.html' %}
+{% load style_filter %}
 
 {% block title %} Books {% endblock %}
 
 {% block header %}List of books{% endblock %}
 
 {% block body %}
-<form method='post' action='/v2/books/'>
+
+
+{% for error in form.non_field_errors %}
+<div class="alert alert-danger" role="alert">
+    {{ error }}
+</div>
+{% endfor %}
+
+
+<form enctype='multipart/form-data' method='post'>
     {% csrf_token %}
 
+    {% for field in form %}
     <div class="mb-3">
-        <label for="book-title" class="form-label">Book title</label>
-        <input type="text" class="form-control" id="book-title"
-               name="title" placeholder="Pass book title">
+        {% for error in field.errors %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+        {% endfor %}
+
+        <label for="{{ field.id_for_label }}" css="form-label">{{ field.label }}</label>
+        {{ field|addclass:"form-control" }}
     </div>
-    <div class="mb-3">
-        <label for="book-publication-year" class="form-label">Publication year</label>
-        <input type='number' class="form-control" id="book-publication-year"
-               name="publication_year" value="1600" min="1600" max="2050">
-    </div>
+    {% endfor %}
+
     <button type='submit' class="btn btn-outline-secondary">Add book</button>
 </form>
 

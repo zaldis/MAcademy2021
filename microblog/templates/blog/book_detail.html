@@ -1,23 +1,37 @@
 {% extends 'base.html' %}
+{% load style_filter %}
 
 {% block title %}Book detail: {{ book.title }}{% endblock %}
-
 {% block header %}Book detail: {{ book.title }}{% endblock %}
 
 {% block body %}
-<form method='post'>
+{% if book.photo %}
+    <div>
+        <img src="{{ book.photo.url }}"
+             class="rounded mx-auto d-block"
+             width="600" height="400"
+        >
+    </div>
+{% else %}
+    <div></div>
+{% endif %}
+
+<form enctype='multipart/form-data' method='post'>
     {% csrf_token %}
 
+    {% for field in form %}
     <div class="mb-3">
-        <label for="book-title" class="form-label">Book title</label>
-        <input type="text" class="form-control" id="book-title" readonly
-            name="title" placeholder="Pass book title" value="{{ book.title }}">
+        {% for error in field.errors %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+        {% endfor %}
+
+        <label for="{{ field.id_for_label }}" css="form-label">{{ field.label }}</label>
+        {{ field|addclass:"form-control" }}
     </div>
-    <div class="mb-3">
-        <label for="book-publication-year" class="form-label">Publication year</label>
-        <input type='number' class="form-control" id="book-publication-year"
-            name="publication_year" min="1600" max="2050" value={{ book.publication_year }}>
-    </div>
+    {% endfor %}
+
     <button type='submit' class="btn btn-outline-secondary">Update book</button>
 </form>
 

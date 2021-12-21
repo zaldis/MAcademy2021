@@ -1,7 +1,13 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}Home{% endblock %}
 
 {% block header %}Hello at home page{% endblock %}
 
-{% block body %}{% endblock %}
+{% block body %}
+<div>
+    <img src="{% static 'main.jpg' %}" class="rounded mx-auto d-block" width="600" height="400">
+</div>
+{% endblock %}
