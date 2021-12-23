@@ -19,26 +19,19 @@
 <form enctype='multipart/form-data' method='post'>
     {% csrf_token %}
 
-    {% for field in form %}
-    <div class="mb-3">
-        {% for error in field.errors %}
-        <div class="alert alert-danger" role="alert">
-            {{ error }}
-        </div>
-        {% endfor %}
+    {% include "snippets/form_fields.html" with form=form %}
 
-        <label for="{{ field.id_for_label }}" css="form-label">{{ field.label }}</label>
-        {{ field|addclass:"form-control" }}
-    </div>
-    {% endfor %}
-
-    <button type='submit' class="btn btn-outline-secondary">Update book</button>
+    <button type='submit'
+            class="btn btn-outline-secondary mt-4"
+            style="width:100%">Update book</button>
 </form>
 
 <hr>
 
 <form method='post' action="delete/">
     {% csrf_token %}
-    <button type='submit' class="btn btn-outline-danger">Delete book</button>
+    <button type='submit'
+            class="btn btn-outline-danger"
+            style="width:100%">Delete book</button>
 </form>
 {% endblock %}

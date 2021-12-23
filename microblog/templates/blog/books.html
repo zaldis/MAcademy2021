@@ -9,29 +9,16 @@
 
 
 {% if perms.blog.add_book %}
-    {% for error in form.non_field_errors %}
-    <div class="alert alert-danger" role="alert">
-        {{ error }}
-    </div>
-    {% endfor %}
-
     <form enctype='multipart/form-data' method='post'>
         {% csrf_token %}
 
-        {% for field in form %}
-        <div class="mb-3">
-            {% for error in field.errors %}
-            <div class="alert alert-danger" role="alert">
-                {{ error }}
-            </div>
-            {% endfor %}
+        {% include "snippets/form_fields.html" with form=form %}
 
-            <label for="{{ field.id_for_label }}" css="form-label">{{ field.label }}</label>
-            {{ field|addclass:"form-control" }}
-        </div>
-        {% endfor %}
-
-        <button type='submit' class="btn btn-outline-secondary">Add book</button>
+        <button type='submit' 
+                class="btn btn-outline-secondary mt-2"
+                style="width:100%">
+            Add book
+        </button>
     </form>
     <hr>
 {% endif %}

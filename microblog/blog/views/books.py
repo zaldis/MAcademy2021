@@ -1,10 +1,13 @@
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.shortcuts import render, HttpResponseRedirect
-from django.urls import reverse
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from django.views.generic.edit import FormView
-from django.views.decorators.http import require_http_methods
 from django import forms
+from django.contrib.auth.mixins import (LoginRequiredMixin,
+                                        PermissionRequiredMixin)
+from django.core.exceptions import ValidationError
+from django.shortcuts import HttpResponseRedirect, render
+from django.urls import reverse
+from django.utils import timezone
+from django.views.decorators.http import require_http_methods
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+from django.views.generic.edit import FormView
 
 from blog.models import Book
 
@@ -16,6 +19,12 @@ class BookForm(forms.ModelForm):
         widgets = {
             'title': forms.TextInput(),
         }
+
+    def clean_publication_year(self):
+        publication_year = self.cleaned_data['publication_year']
+        if publication_year > timezone.now().year:
+            raise ValidationError('You can\'t create the book in the future.')
+        return publication_year
 
 
 class BookDetailForm(BookForm):
