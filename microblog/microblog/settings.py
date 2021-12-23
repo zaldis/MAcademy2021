@@ -125,5 +125,10 @@ STATICFILES_DIRS = []
 MEDIA_ROOT = BASE_DIR / 'media-files'
 MEDIA_URL = '/media/'
 
+
+LOGIN_URL = '/auth/login/'
+LOGIN_REDIRECT_URL = 'v2:index'
+
+
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

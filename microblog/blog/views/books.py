@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
@@ -43,16 +44,17 @@ def books_list(request):
     return render(request, 'blog/books.html', context=context)
 
 
-class BookCreateView(CreateView):
+class BookCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Book
     form_class = BookForm
+    permission_required = 'blog.add_book'
 
     def get_success_url(self) -> str:
         created_book = self.get_context_data()['book']
         return reverse('v2:book-detail', args=[created_book.title])
 
 
-class BookListView(ListView, FormView):
+class BookListView(LoginRequiredMixin, ListView, FormView):
     model = Book
     form_class = BookForm
     ordering = ['-publication_year', 'title']
@@ -68,16 +70,18 @@ class BookListView(ListView, FormView):
         return view(request, *args, **kwargs)
 
 
-class BookDetailView(UpdateView):
+class BookDetailView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Book
     form_class=BookDetailForm
+    permission_required = 'blog.change_book'
     template_name = 'blog/book_detail.html'
     context_object_name = 'book'
     pk_url_kwarg = 'title'
 
 
-class BookDeleteView(DeleteView):
+class BookDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Book
+    permission_required = 'blog.delete_book'
     pk_url_kwarg = 'title'
 
     def get_success_url(self) -> str:

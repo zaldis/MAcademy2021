@@ -35,6 +35,22 @@
                         Users
                     </a>
                 </li>
+
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <span class="nav-link active" aria-current="page">
+                        | {{ user.username }} (
+                            <a href="{% url 'logout' %}">Выйти</a>
+                        )
+                    </span>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a href="{% url 'login' %}" class="nav-link active" aria-current="page">
+                        | Войти
+                    </a>
+                </li>
+                {% endif %}
             </ul>
         </nav>
 
