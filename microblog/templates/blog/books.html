@@ -23,6 +23,25 @@
     <hr>
 {% endif %}
 
+
+<p>
+    <button class="btn btn-primary" type="button" 
+            data-bs-toggle="collapse" data-bs-target="#collapseExample"
+            aria-expanded="false" aria-controls="collapseExample">
+       Filters
+    </button>
+  </p>
+  <div class="collapse" id="collapseExample">
+    <div class="card card-body mb-3">
+        <form method="get">
+            {{ filter.form.as_p }}
+            <input type="submit" />
+        </form>
+    </div>
+  </div>
+
+
+
 <table class="table table-light table-striped table-hover">
     <tr class="table-dark">
         <th>Title</th>
@@ -40,4 +59,36 @@
         </tr>
     {% endfor %}
 </table>
+
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <span class="page-item">
+            <a class="page-link" href="?page=1&{{ filter_str }}">
+                &laquo; first
+            </a>
+        </span>
+        <span class="page-item">
+            <a class="page-link" 
+            href="?page={{ page_obj.previous_page_number }}&{{ filter_str }}">
+            previous
+            </a>
+        </span>
+    {% endif %}
+    <span class="page-item" style="margin-left: 10px; margin-right: 10px">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+    </span>
+    {% if page_obj.has_next %}
+        <span class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}&{{ filter_str }}">
+                next
+            </a>
+        </span>
+        <span class="page-item">
+            <a class="page-link" 
+            href="?page={{ page_obj.paginator.num_pages }}&{{ filter_str }}">
+            last &raquo;
+            </a>
+        </span>
+    {% endif %}
+</div>
 {% endblock %}
